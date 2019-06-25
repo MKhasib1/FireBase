@@ -10,5 +10,16 @@
     <string name="UpdatePassword">Update Password</string>
     <string name="Enter_your_password">Enter your Password</string>
     <string name="activity_2">Activity 2</string>
-    <string name="login">Login</string>
+    <string name="login">Login Form</string>
+    <string name="font_family_light">sans-serif-light</string>
+    <string name="font_family_medium">sans-serif-medium</string>
+    <string name="font_family_regular">sans-serif</string>
+    <string name="font_family_condensed">sans-serif-condensed</string>
+    <string name="font_family_black">sans-serif-black</string>
+    <string name="font_family_thin">sans-serif-thin</string>
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>
+

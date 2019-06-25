@@ -12,9 +12,11 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     protected Button SignUp;
     protected FirebaseAuth mAuth;
     protected Button UpdatePassword;
+    protected ProgressBar pbHeaderProgress;
 
     public  static final String EXTRA_EMAIL="com.example.login.EXTRA_EMAIL";
     public  static final String EXTRA_NAME="com.example.login.EXTRA_NAME";
@@ -41,15 +44,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         email=findViewById(R.id.email);
         password=findViewById(R.id.password);
         Login=findViewById(R.id.Login);
         SignUp=findViewById(R.id.SignUp);
         UpdatePassword=findViewById(R.id.UpdatePassword);
         mAuth = FirebaseAuth.getInstance();
+        pbHeaderProgress= findViewById(R.id.spinner);
+        pbHeaderProgress.setVisibility(View.INVISIBLE);
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(email!=null&&password!=null&&TextUtils.isEmpty(email.getText().toString())==false&&TextUtils.isEmpty(password.getText().toString())==false){
                     mSginIN(email.getText().toString(), password.getText().toString());
 
@@ -59,11 +66,13 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
 
                 }
+
             }
         });
         SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(email!=null&&password!=null&&TextUtils.isEmpty(email.getText().toString())==false&&TextUtils.isEmpty(password.getText().toString())==false)
                 mSginUp(email.getText().toString(),password.getText().toString());
                 else
@@ -72,11 +81,14 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
+
             }
         });
         UpdatePassword.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+
                 if(email!=null&&password!=null&&TextUtils.isEmpty(email.getText().toString())==false&&TextUtils.isEmpty(password.getText().toString())==false)
                 {
                     mUpdatePassword(email.getText().toString(),password.getText().toString());
@@ -86,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
 
                 }
+
+
             }
         });
 
@@ -94,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void mUpdatePassword(String toString, String toString1){
+        pbHeaderProgress.setVisibility(View.VISIBLE);
         mAuth.signInWithEmailAndPassword(toString, toString1)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -107,25 +122,17 @@ public class MainActivity extends AppCompatActivity {
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            String type=task.getException().toString();
+                            cases(task);
 
-                            if(type.contains("The email address is badly formatted"))
-                                Toast.makeText(MainActivity.this, "The Email isn't formatted correctly",
-                                        Toast.LENGTH_SHORT).show();
-                            if(type.contains("There is no user record corresponding to this identifier"))
-                                Toast.makeText(MainActivity.this, "No Such Email exists",
-                                        Toast.LENGTH_SHORT).show();
-                            if(type.contains("The password is invalid"))
-                                Toast.makeText(MainActivity.this, "InCorrect Password",
-                                        Toast.LENGTH_SHORT).show();
-                            Log.e("error", task.getException().toString());
 
                         }
                     }
                 });
+        pbHeaderProgress.setVisibility(View.INVISIBLE);
     }
 
     private void mSginIN(String toString, String toString1){
+        pbHeaderProgress.setVisibility(View.VISIBLE);
         mAuth.signInWithEmailAndPassword(toString, toString1)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -138,18 +145,7 @@ public class MainActivity extends AppCompatActivity {
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            String type=task.getException().toString();
-
-                            if(type.contains("The email address is badly formatted"))
-                                Toast.makeText(MainActivity.this, "The Email isn't formatted correctly",
-                                        Toast.LENGTH_SHORT).show();
-                            if(type.contains("There is no user record corresponding to this identifier"))
-                                Toast.makeText(MainActivity.this, "No Such Email exists",
-                                        Toast.LENGTH_SHORT).show();
-                            if(type.contains("The password is invalid"))
-                                Toast.makeText(MainActivity.this, "InCorrect Password",
-                                        Toast.LENGTH_SHORT).show();
-                            Log.e("error", task.getException().toString());
+                            cases(task);
 
                             updateUI(null);
                         }
@@ -157,9 +153,11 @@ public class MainActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+        pbHeaderProgress.setVisibility(View.INVISIBLE);
     }
 
     private void mSginUp(String toString, String toString1) {
+        pbHeaderProgress.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(toString,toString1)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -170,28 +168,15 @@ public class MainActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.e("error", "createUserWithEmail:failure", task.getException());
-                            String type=task.getException().toString();
+                            cases(task);
 
-                            if(type.contains("The email address is badly formatted"))
-                                Toast.makeText(MainActivity.this, "The Email isn't formatted correctly",
-                                        Toast.LENGTH_SHORT).show();
-                            if(type.contains("There is no user record corresponding to this identifier"))
-                                Toast.makeText(MainActivity.this, "No Such Email exists",
-                                        Toast.LENGTH_SHORT).show();
-                            if(type.contains("The password is invalid"))
-                                Toast.makeText(MainActivity.this, "InCorrect Password",
-                                        Toast.LENGTH_SHORT).show();
-                            else
-                                Toast.makeText(MainActivity.this, "The Email is already exists",
-                                        Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
 
                         // ...
                     }
                 });
+        pbHeaderProgress.setVisibility(View.INVISIBLE);
     }
 
 
@@ -256,5 +241,29 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alert11 = alertDialog.create();
         alert11.show();
     }
+public void cases(Task<AuthResult> task){
+    // If sign in fails, display a message to the user.
+    Log.e("error", "createUserWithEmail:failure", task.getException());
+    String type=task.getException().toString();
 
+    if(type.contains("The email address is badly formatted"))
+        Toast.makeText(MainActivity.this, "The Email isn't formatted correctly",
+                Toast.LENGTH_SHORT).show();
+    if(type.contains("There is no user record corresponding to this identifier"))
+        Toast.makeText(MainActivity.this, "No Such Email exists",
+                Toast.LENGTH_SHORT).show();
+    if(type.contains("The password is invalid"))
+        Toast.makeText(MainActivity.this, "InCorrect Password",
+                Toast.LENGTH_SHORT).show();
+    if(type.contains("The email address is already in use by another account"))
+        Toast.makeText(MainActivity.this, "The Email is already exists",
+                Toast.LENGTH_SHORT).show();
+    if(type.contains("A network error"))
+        Toast.makeText(MainActivity.this, "Network is down",
+                Toast.LENGTH_SHORT).show();
+    else
+        Toast.makeText(MainActivity.this, "Your password is too little",
+                Toast.LENGTH_SHORT).show();
+
+}
 }
