@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -47,5 +48,10 @@ public class Sucess extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(Sucess.this, "You can't get back unless you uses Log Out Button",
+                Toast.LENGTH_SHORT).show();
     }
 }
