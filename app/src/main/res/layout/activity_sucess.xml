@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:background="@color/light_blue">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:text="Loggd In!"
+        android:paddingLeft="100dp"
+        android:textColor="@color/dark_sea_green"
+
+        android:textSize="50sp"
+        android:layout_marginBottom="30dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/email"
+        android:textColor="@color/beige"
+        android:textSize="50sp"
+        android:paddingLeft="130dp"
+        />
+
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/enter_your_email"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:importantForAutofill="no"
+        android:paddingLeft="130dp"/>
+
+
+
+
+    <Button
+        android:id="@+id/SignUp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/light_sky_blue"
+        android:text="Log Out"
+        android:textColor="@color/dark_slate_gray" />
+
+</LinearLayout>

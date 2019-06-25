@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:background="@color/light_blue">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:paddingLeft="130dp"
+        android:textColor="@color/rosy_brown"
+
+        android:textSize="50sp"
+        android:layout_marginBottom="30dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/email"
+        android:textColor="@color/beige"
+        android:textSize="50sp"
+        android:paddingLeft="130dp"
+        />
+
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/enter_your_email"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:importantForAutofill="no"
+        android:paddingLeft="130dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Password"
+        android:textColor="@color/beige"
+        android:textSize="50sp"
+        android:paddingLeft="100dp"
+
+        />
+
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:paddingLeft="120dp"
+        android:hint="Enter your password"
+
+        android:layout_marginBottom="30dp"/>
+
+    <Button
+        android:id="@+id/Login"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/light_sky_blue"
+        android:text="@string/Login"
+        android:textColor="@color/dark_slate_gray" />
+
+    <Button
+        android:id="@+id/SignUp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/light_sky_blue"
+        android:text="@string/SignUp"
+        android:textColor="@color/dark_slate_gray" />
+
+
+</LinearLayout>
