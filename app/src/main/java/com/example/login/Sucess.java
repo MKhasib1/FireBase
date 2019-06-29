@@ -1,57 +1,82 @@
 package com.example.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import android.view.View;
+import androidx.appcompat.widget.AppCompatButton;
+import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.EditText;
+
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 public class Sucess extends AppCompatActivity {
-    private EditText email;
-    private Button SignUp;
-
+    private Button menu;
+    private AppCompatButton add;
+    private AppCompatButton remove;
+    private AppCompatButton edit;
+    private AppCompatButton logout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sucess);
-        email=findViewById(R.id.email);
+        setContentView(R.layout.activity_main);
+        menu=findViewById(R.id.menu);
+        add=findViewById(R.id.add);
+        remove=findViewById(R.id.Remove);
+        edit=findViewById(R.id.edit);
+        logout=findViewById(R.id.Logout);
 
-        Intent intent=getIntent();
-        String email1=intent.getStringExtra(MainActivity.EXTRA_EMAIL);
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // Name, email address, and profile photo Url
-
-            String memail = user.getEmail();
-            Uri photoUrl = user.getPhotoUrl();
-            email.setText(memail);
-            // Check if user's email is verified
-            boolean emailVerified = user.isEmailVerified();
-
-            // The user's ID, unique to the Firebase project. Do NOT use this value to
-            // authenticate with your backend server, if you have one. Use
-            // FirebaseUser.getIdToken() instead.
-            String uid = user.getUid();
-        }
-        SignUp=findViewById(R.id.SignUp);
-        SignUp.setOnClickListener(new View.OnClickListener() {
+        menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+
+                final PopupMenu mpopupMenu=new PopupMenu(Sucess.this,menu);
+
+                mpopupMenu.getMenuInflater().inflate(R.menu.menu_main,mpopupMenu.getMenu());
+                mpopupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        Toast.makeText(
+                                Sucess.this,
+                                "You Clicked : " + item.getTitle(),
+                                Toast.LENGTH_SHORT
+                        ).show();
+                        return true;
+                    }
+                });
+
+
+                //showing popup menu
+
+                mpopupMenu.show();
+
             }
         });
     }
+
+    //    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
     @Override
-    public void onBackPressed() {
-        Toast.makeText(Sucess.this, "You can't get back unless you uses Log Out Button",
-                Toast.LENGTH_SHORT).show();
-    }
-}
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Toast.makeText(this, "Selected Item: " +item.getTitle(), Toast.LENGTH_SHORT).show();
+        switch (item.getItemId()) {
+            case R.id.add:
+                Toast.makeText(this, "Selected Item: " +item.getTitle(), Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.Remove:
+                Toast.makeText(this, "Selected Item: " +item.getTitle(), Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.edit:
+                Toast.makeText(this, "Selected Item: " +item.getTitle(), Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.Logout:
+                Toast.makeText(this, "Selected Item: " +item.getTitle(), Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }}

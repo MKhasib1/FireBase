@@ -12,7 +12,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 
-import android.view.Window;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         email=findViewById(R.id.email);
         password=findViewById(R.id.password);
         Login=findViewById(R.id.Login);
